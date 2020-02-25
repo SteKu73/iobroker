@@ -1,8 +1,34 @@
+# Shell
+.bash_history
+.lesshst
+*.swp
+nohup.*
+
+# Configmanagement
+.ansible
+*.retry
+
 # Cache objects
 packer_cache/
+*.ova
+*.ovf
 
-# Crash log
-crash.log
+# Logs
+*.log
 
-# For built boxes
+
+# Vagrant
 *.box
+.vagrant
+
+# Misc
+*.xml
+*.img
+*.ipf
+*.old
+*.out
+out/*
+
+# Keep
+!.keep
+!.gitkeep
