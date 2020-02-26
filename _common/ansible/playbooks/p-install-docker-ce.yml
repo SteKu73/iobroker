@@ -1,0 +1,42 @@
+---
+- hosts: all
+  become: true
+  become_user: root
+  tasks:
+    
+  - name: "include vars from file"
+    include_vars: /vagrant_common/vars/v-install-docker-ce.yml
+
+  - name: "uninstall old docker version from OS-repo"
+    apt:
+      name: "{{ uninstall_packages }}"
+      state: absent
+    when: ansible_os_family == "Debian"
+  - name: "install prerequisites from docker.com"
+    apt:
+      name: "{{ prereq_packages }}"
+      state: latest
+      update_cache: yes
+    when: ansible_os_family == "Debian"
+  - name: "add docker-ce repos key to system"
+    apt_key:
+      url: https://download.docker.com/linux/debian/gpg
+      state: present
+    when: ansible_os_family == "Debian"
+  - name: "add docker-ce repos to system"
+    apt_repository:
+      repo: deb https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+      state: present
+    when: ansible_os_family == "Debian"
+  - name: "install docker-ce from docker.com"
+    apt:
+      name: "{{ install_packages }}"
+      state: latest
+      update_cache: yes
+    when: ansible_os_family == "Debian"
+# - name: "ensure docker is started with debug"
+  - name: "ensure docker is started"
+    systemd:
+      name: docker
+      enabled: yes
+      state: started

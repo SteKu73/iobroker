@@ -1,0 +1,17 @@
+---
+uninstall_packages:
+- docker
+- docker-engine
+- docker.io
+- containerd
+- runc
+prereq_packages:
+- apt-transport-https
+- ca-certificates
+- curl
+- gnupg2
+- software-properties-common
+install_packages:
+- docker-ce
+- docker-ce-cli
+- containerd.io
