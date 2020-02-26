@@ -26,6 +26,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   config.vm.provision "ansible_local" do |ansible|
     ansible.playbook = "/vagrant_common/ansible/playbooks/p_base_debian_update.yml"
+  end
+  config.vm.provision "ansible_local" do |ansible|
     ansible.playbook = "/vagrant_common/ansible/playbooks/p-install-docker-ce.yml"
+  end
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook = "/vagrant_common/ansible/playbooks/p-start-docker-iobroker-single.yml"
   end
 end

@@ -1,0 +1,30 @@
+---
+- hosts: all
+  become: true
+  become_user: root
+  tasks:
+    
+  - name: "ensure data directory is in place"
+    file:
+      path: /data/iobroker_data
+      state: directory
+      mode: '0755'
+  
+  - name: "ensure project directory is in place"
+    file:
+      path: /tmp/iobroker
+      state: directory
+      mode: '0755'
+  
+  - name: "Copy docker-compose.yml"
+    copy:
+      src: /vagrant_common/files/docker-compose.yml
+      dest: /tmp/iobroker/docker-compose.yml
+      #owner: vagrant
+      #group: vagrant
+      backup: yes
+      mode: '0644'
+  
+#  - name: "run docker service"
+#    docker_compose:
+#      project_src: /tmp/iobroker
